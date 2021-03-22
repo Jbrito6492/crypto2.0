@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../static/css/dashboard.css";
+import styles from "../../css/dashboard.css";
 
 export default function Dashboard(props) {
   return (
