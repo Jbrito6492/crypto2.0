@@ -12,21 +12,36 @@ module.exports = {
   },
   output: {
     path: DIST_DIR,
-    publicPath: 'http://0.0.0.0:8000/static/',
     filename: 'bundle.js'
   },
   module: {
-    rules: [{
-      test: [/\.jsx$/],
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-react', '@babel/preset-env']
-        }
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true
+            }
+          }
+        ]
       },
-    }],
+      {
+        test: [/\.jsx$/],
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-proposal-class-properties']
+          }
+        },
+      }
+    ],
   },
+  optimization: { minimize: true },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Crypto',
@@ -35,6 +50,7 @@ module.exports = {
     }),
     new BundleTracker({
       path: __dirname,
+      publicPath: '/static/',
       filename: 'webpack-stats.dev.json'
     })
   ]

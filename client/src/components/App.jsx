@@ -1,5 +1,6 @@
 import React from "react";
+import Dashboard from "./Dashboard.jsx";
 
 export default function App(props) {
-  return <h1>hello world</h1>;
+  return <Dashboard />;
 }

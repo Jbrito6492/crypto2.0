@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'client/static/',
+        'BUNDLE_DIR_NAME': 'static/',
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.dev.json'),
         'LOADER_CLASS': 'webpack_loader.loader.WebpackLoader',
     },
@@ -141,5 +141,5 @@ STATICFILES_FINDERS = (
 )
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'client/static/'),
+    os.path.join(BASE_DIR, 'client/'),
 )
