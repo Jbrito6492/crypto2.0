@@ -11,6 +11,3 @@ class Crypto(models.Model):
     def __str__(self):
         """Return string representation of Crypto"""
         return str(self.name)
-
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
