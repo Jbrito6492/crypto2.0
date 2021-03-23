@@ -1,7 +1,6 @@
 const path = require('path');
 const SRC_DIR = path.join(__dirname, 'client', 'src');
 const DIST_DIR = path.join(__dirname, 'client', 'static');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleTracker = require("webpack-bundle-tracker");
 
 module.exports = {
@@ -43,11 +42,6 @@ module.exports = {
   },
   optimization: { minimize: true },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Crypto',
-      template: path.join(__dirname, 'client', 'templates', 'index.html'),
-      filename: 'index.html'
-    }),
     new BundleTracker({
       path: __dirname,
       publicPath: '/static/',

@@ -1,8 +1,7 @@
-from rest_framework import routers
-from .api import CryptoViewSet
+from django.urls import path
+from crypto_api import views
 
 
-router = routers.DefaultRouter()
-router.register('api/crypto', CryptoViewSet, 'crypto')
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('crypto/', views.CryptoApiView.as_view())
+]
