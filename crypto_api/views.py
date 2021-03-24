@@ -16,7 +16,7 @@ class CryptoApiView(APIView):
         try:
             qs = Crypto.objects.all()
             serializer = self.serializer_class(qs, many=True)
-            return Response(serializer.data, status=200)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         except Crypto.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -25,7 +25,7 @@ class CryptoApiView(APIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save(request.data)
-            return Response({'data': serializer.data}, status=201)
+            return Response({'data': serializer.data}, status=status.HTTP_201_CREATED)
         else:
             return Response(
                 serializer.errors,
@@ -36,15 +36,23 @@ class CryptoApiView(APIView):
         """Update Crypto instance in DB"""
         crypto_coin = Crypto.objects.get(id=pk)
         serializer = self.serializer_class(
-            crypto_coin, data=request.data, partial=True)
+            crypto_coin, data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response({'data': serializer.data}, status=201)
+            return Response({'data': serializer.data}, status=status.HTTP_202_ACCEPTED)
         else:
             return Response(
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-    def delete(self, request):
+    def delete(self, request, pk):
         """Delete Crypto instance in DB"""
+        try:
+            crypto_coin = Crypto.objects.get(id=pk)
+            crypto_coin.delete()
+            return Response({'data': 'crypto deleted successfully'}, status=status.HTTP_202_ACCEPTED)
+        except Crypto.DoesNotExist:
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
