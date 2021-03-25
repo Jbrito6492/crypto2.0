@@ -11,11 +11,15 @@ class CryptoApiView(APIView):
     """Main CryptoApiView"""
     serializer_class = serializers.CryptoSerializer
 
-    def get(self, request, format=None):
+    def get(self, request, pk=None, format=None):
         """Returns a list of APIView Cryptos"""
         try:
-            qs = Crypto.objects.all()
-            serializer = self.serializer_class(qs, many=True)
+            if pk is not None:
+                qs = Crypto.objects.get(id=pk)
+                serializer = self.serializer_class(qs)
+            else:
+                qs = Crypto.objects.all()
+                serializer = self.serializer_class(qs, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Crypto.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -24,7 +28,7 @@ class CryptoApiView(APIView):
         """Add Crypto information to db"""
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save(request.data)
+            serializer.save()
             return Response({'data': serializer.data}, status=status.HTTP_201_CREATED)
         else:
             return Response(
@@ -34,9 +38,9 @@ class CryptoApiView(APIView):
 
     def patch(self, request, pk, format=None):
         """Update Crypto instance in DB"""
-        crypto_coin = Crypto.objects.get(id=pk)
+        qs = Crypto.objects.get(id=pk)
         serializer = self.serializer_class(
-            crypto_coin, data=request.data)
+            qs, data=request.data)
         if serializer.is_valid():
             return Response({'data': serializer.data}, status=status.HTTP_202_ACCEPTED)
         else:
@@ -45,11 +49,11 @@ class CryptoApiView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-    def delete(self, request, pk):
+    def delete(self, request, pk, format=None):
         """Delete Crypto instance in DB"""
         try:
-            crypto_coin = Crypto.objects.get(id=pk)
-            crypto_coin.delete()
+            qs = Crypto.objects.get(id=pk)
+            qs.delete()
             return Response({'data': 'crypto deleted successfully'}, status=status.HTTP_202_ACCEPTED)
         except Crypto.DoesNotExist:
             return Response(
