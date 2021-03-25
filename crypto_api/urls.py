@@ -3,6 +3,6 @@ from crypto_api import views
 
 
 urlpatterns = [
-    path('crypto/', views.CryptoApiView.as_view()),
-    path('crypto/<int:pk>/', views.CryptoApiView.as_view(), name='crypto'),
+    path('crypto/', views.CryptoApiView.as_view(), name='crypto'),
+    path('crypto/<int:pk>/', views.CryptoApiView.as_view(), name='crypto_id'),
 ]

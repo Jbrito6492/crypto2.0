@@ -6,7 +6,7 @@ export default function InfoBoard({ data }) {
   return (
     <>
       <div>{ticker}</div>
-      <div>{current_price}</div>
+      <div>${current_price}</div>
       <div>{name}</div>
       <div>{description}</div>
     </>

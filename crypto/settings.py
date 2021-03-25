@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'crypto_api',
+    'data_analysis',
     'client',
     'webpack_loader',
 ]
