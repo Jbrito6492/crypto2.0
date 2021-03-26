@@ -1,10 +1,9 @@
+from crypto_api import serializers
+from crypto_api.models import Crypto
+
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
-
-from crypto_api import serializers
-from crypto_api.models import Crypto
 
 
 class CryptoApiView(APIView):

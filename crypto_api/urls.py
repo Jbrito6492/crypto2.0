@@ -1,5 +1,5 @@
-from django.urls import path
 from crypto_api import views
+from django.urls import path
 
 
 urlpatterns = [

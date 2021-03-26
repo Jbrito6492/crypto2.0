@@ -7,8 +7,8 @@ export default function Dashboard(props) {
     <Fragment>
       <div className={styles.dashboardContainer}>
         <h4>news</h4>
-        <h4>simple daily return</h4>
-        <h4>daily log return</h4>
+        <h4>simple return</h4>
+        <h4>log return</h4>
         <h4>beta</h4>
       </div>
       <DropDown />
