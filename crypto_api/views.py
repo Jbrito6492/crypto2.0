@@ -1,4 +1,4 @@
-from crypto_api import serializers
+from crypto_api.serializers import CryptoSerializer
 from crypto_api.models import Crypto
 
 from rest_framework import status
@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 class CryptoApiView(APIView):
     """Main CryptoApiView"""
-    serializer_class = serializers.CryptoSerializer
+    serializer_class = CryptoSerializer
 
     def get(self, request, pk=None, format=None):
         """Returns a list of APIView Cryptos"""
