@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import CryptoList from "./CryptoList.jsx";
 
-export default function DropDown(props) {
-  const [state, setState] = useState({});
-
-  const handleSubmit = (e) => {};
-
+export default function DropDown({ cryptos, data, handleClick }) {
   return (
     <div className="dropdown show">
       <div
@@ -17,7 +13,7 @@ export default function DropDown(props) {
       >
         Currencies
       </div>
-      <CryptoList />
+      <CryptoList handleClick={handleClick} data={data} cryptos={cryptos} />
     </div>
   );
 }
