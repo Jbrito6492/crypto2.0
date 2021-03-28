@@ -2,8 +2,8 @@ from crypto_api.models import Crypto
 from django.db import models
 
 
-class Analytics(models.Model):
-    coin = models.ForeignKey(
+class Data(models.Model):
+    ticker = models.OneToOneField(
         Crypto, on_delete=models.CASCADE)
     simple_return = models.FloatField(null=True)
     log_return = models.FloatField(null=True)

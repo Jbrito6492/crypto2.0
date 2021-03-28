@@ -1,9 +1,9 @@
 from django.db import models
 
 
-class Details(models.Model):
+class Crypto(models.Model):
     """General crypto class"""
-    ticker = models.CharField(max_length=25, unique=True)
+    ticker = models.CharField(max_length=25)
     current_price = models.FloatField(null=True)
     name = models.CharField(max_length=25)
     description = models.CharField(max_length=250)
