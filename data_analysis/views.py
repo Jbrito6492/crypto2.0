@@ -1,20 +1,37 @@
+from crypto_api.models import Crypto
+
+from data_analysis.models import Data
 from data_analysis.serializers import DataSerializer
+import datetime
+
+from pandas_datareader import data as wb
 
 from rest_framework import status
-from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from data_analysis.models import Data
+from rest_framework.views import APIView
 
 
-class DataViewSet(ViewSet):
+class DataViewApi(APIView):
     """A ViewSet for data analysis"""
     serializer_class = DataSerializer
 
-    def retrieve(self, request, pk):
+    tod = datetime.datetime.now()
+    d = datetime.timedelta(days=365)
+    a = tod - d
+
+    def get(self, request, pk=None, format=None):
         """Return Data about Crypto Id"""
+        t_return = {}
         try:
-            qs = Data.objects.filter(crypto=pk)
-            serializer = self.serializer_class(qs, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            qs = Crypto.objects.select_related('id')
+            # serializer = self.serializer_class(qs)
+            Ticker = wb.DataReader(
+                qs, data_source="yahoo", start=self.a)
+            Ticker["simple_return"] = (
+                Ticker["Adj Close"] / Ticker["Adj Close"].shift(1)) - 1
+            avg_returns_d = Ticker["simple_return"].mean()
+            t_return[qs] = "{s_return:.5f}%".format(
+                s_return=avg_returns_d * 100)
+            return Response(t_return, status=status.HTTP_200_OK)
         except Data.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)

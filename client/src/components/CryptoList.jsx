@@ -13,16 +13,32 @@ export default function CryptoList() {
       { ticker: "LTC-USD" },
     ],
     data: null,
+    analysis: [],
   });
   const { cryptos, data } = state;
 
-  const handleClick = (id, e) => {
+  const getDescription = (id) => {
     axios
       .get(`/api/crypto/${id}/`)
       .then(({ data }) => {
         setState({ ...state, data });
       })
       .catch((e) => console.log(e));
+  };
+
+  const getAnalysis = (id) => {
+    axios
+      .get(`/analysis/${id}/`)
+      .then(({ data }) => {
+        setState({ ...state, analysis: [...state.analysis, data] });
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const handleClick = async (id, e) => {
+    await getDescription(id);
+    await getAnalysis(id);
+    console.log(state.analysis);
   };
 
   const list = cryptos.map((crypto, index) => (

@@ -10,8 +10,6 @@ export default function DropDown(props) {
     <div className="dropdown show">
       <div
         className="btn btn-secondary dropdown-toggle"
-        href="#"
-        role="button"
         id="dropdownMenuLink"
         data-toggle="dropdown"
         aria-haspopup="true"
